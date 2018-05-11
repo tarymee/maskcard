@@ -1,0 +1,86 @@
+<!doctype HTML>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<meta content="telephone=no" name="format-detection" />
+<title>移动端刮刮卡</title>
+<style>
+*{margin:0;padding:0;}
+.maskcard{width:200px;height:200px;position:relative;margin:10px auto;}
+.maskcard img{display:block;width:100%;height:100%;}
+.maskcard canvas{width:100%;height:100%;position:absolute;top:0px;left:0px;}
+.btn{width:200px;height:30px;line-height:30px;background-color:#05a;border-radius:3px;color:#fff;text-align:center;margin:10px auto;font-size:12px;cursor:pointer;}
+.btn:hover{background-color:red;}
+</style>
+</head>
+<body>
+
+<div class="maskcard">
+    <img src="./img/bg.jpg" alt="" />
+    <canvas id="JcanvasA"></canvas>
+</div>
+<div class="btn" id="JbtnA">Disable</div>
+<div class="btn" id="JbtnB">Enable</div>
+<div class="btn" id="JbtnC">Change the scratching path</div>
+<div class="btn" id="JbtnD">complete</div>
+<div class="btn" id="JbtnE">Change image</div>
+
+<script src="../maskcard.js" charset="utf-8"></script>
+<script type="text/javascript">
+function $(id) {
+    return (typeof id == 'object') ? id : document.getElementById(id)
+}
+
+var maskcard = new Maskcard($('JcanvasA'), {
+    percent: '80',
+    touchstart: function (e) {
+        console.log('touchstart')
+    },
+    touchend: function (e) {
+        console.log('touchend')
+        console.log(this)
+        console.log(this.getProgress())
+    },
+    touchmove: function (e) {
+        console.log('touchmove')
+    },
+    beforeInit: function () {
+        console.log('beforeInit')
+    },
+    complete: function() {
+        console.log('complete')
+    },
+})
+
+console.log(maskcard)
+$('JbtnA').addEventListener('click', function() {
+    maskcard.disable()
+}, false)
+
+$('JbtnB').addEventListener('click', function() {
+    maskcard.enable()
+}, false)
+
+$('JbtnC').addEventListener('click', function() {
+    maskcard.changeConfig({
+        radius: '50'
+    })
+}, false)
+
+$('JbtnD').addEventListener('click', function() {
+    maskcard.clear()
+}, false)
+
+$('JbtnE').addEventListener('click', function() {
+    maskcard.changeConfig({
+        fill: {
+            type: 'image',
+            content: './img/mask.jpg'
+        }
+    })
+    maskcard.reset()
+}, false)
+</script>
+</body>
+</html>
