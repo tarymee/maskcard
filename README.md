@@ -1,8 +1,8 @@
 # maskcard
 
-maskcard is a scratchcard plug-in based on canvas.
+Maskcard is a scratchcard plug-in based on canvas.
 
-maskcard 是一个基于canvas的刮刮卡插件。
+Maskcard 是一个基于canvas的刮刮卡插件。
 
 ## Example Usage
 ```
