@@ -4,21 +4,18 @@ Maskcard is a scratchcard plug-in based on canvas.
 
 Maskcard 是一个基于canvas的刮刮卡插件。
 
+
+## Get started
+
+
 ## Example Usage
-```
-new Maskcard(target, config)
-```
-- target：要初始化成刮刮卡的canvas DOM元素
-- config：配置对象【为空的话使用默认值】
-
-```
-new Maskcard(document.querySelector('canvas'))
-```
-
-
 **[【example】](example.html)**
 
 ## API
+
+```
+new Maskcard(target, config)
+```
 
 #### Maskcard config
 Name | type | Description | Default
