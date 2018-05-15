@@ -11,18 +11,18 @@
 })(this, function () {
     'use strict'
 
-    var Maskcard = function (target, config) {
-        if (!target) {
-            console.error('no target')
+    var Maskcard = function (element, config) {
+        if (!element) {
+            console.error('no element')
             return
         }
-        if (typeof target === 'object') {
-            if (target.nodeName !== 'CANVAS') {
-                console.error('target is not canvas element')
+        if (typeof element === 'object') {
+            if (element.nodeName !== 'CANVAS') {
+                console.error('element is not canvas element')
                 return
             }
         } else {
-            console.error('target is not element')
+            console.error('element is not element')
             return
         }
         // 默认配置
@@ -42,14 +42,14 @@
             complete: null // 刮完之后执行
         }
         this.config = extend(initConfig, (config || {}))
-        this.target = target
-        this.ctx = this.target.getContext('2d')
-        this.width = this.target.clientWidth
-        this.height = this.target.clientHeight
+        this.element = element
+        this.ctx = this.element.getContext('2d')
+        this.width = this.element.clientWidth
+        this.height = this.element.clientHeight
         this.init()
     }
 
-    Maskcard.version = '1.0.0'
+    Maskcard.version = '1.0.1'
 
     function extend(sourceObj, extendObj) {
         var newObj = JSON.parse(JSON.stringify(sourceObj))
@@ -75,15 +75,15 @@
         init: function () {
             var _this = this
             var config = _this.config
-            var target = _this.target
+            var element = _this.element
             var ctx = _this.ctx
             var width = _this.width
             var height = _this.height
 
             config.beforeInit && config.beforeInit.call(_this)
 
-            target.width = width
-            target.height = height
+            element.width = width
+            element.height = height
             // 先遮挡后再清除背景 以防初始化刮刮卡之前被看到底部的内容
             ctx.fillStyle = 'silver'
             ctx.fillRect(0, 0, width, height)
@@ -125,7 +125,7 @@
                 var tapend = isCanTouch ? 'touchend' : 'mouseup'
                 var tapmove = isCanTouch ? 'touchmove' : 'mousemove'
 
-                target.addEventListener(tapstart, function (e) {
+                element.addEventListener(tapstart, function (e) {
                     e.preventDefault()
                     if (config.disable) return false // 如果设置了不可刮 则返回false
                     if (_this.isComplete) return false // 已经完成
@@ -137,7 +137,7 @@
                     config.touchstart && config.touchstart.call(_this, e)
                 })
 
-                target.addEventListener(tapmove, function (e) {
+                element.addEventListener(tapmove, function (e) {
                     e.preventDefault()
                     if (config.disable) return false // 如果设置了不可刮 则返回false
                     if (_this.isComplete) return false // 已经完成
@@ -146,8 +146,8 @@
                             e = e.changedTouches[e.changedTouches.length - 1]
                         }
 
-                        var offsetX = target.getBoundingClientRect().left
-                        var offsetY = target.getBoundingClientRect().top
+                        var offsetX = element.getBoundingClientRect().left
+                        var offsetY = element.getBoundingClientRect().top
                         var x = e.clientX - offsetX
                         var y = e.clientY - offsetY
 
@@ -158,7 +158,7 @@
                     }
                 })
 
-                target.addEventListener(tapend, function (e) {
+                element.addEventListener(tapend, function (e) {
                     e.preventDefault()
                     if (config.disable) return false // 如果设置了不可刮 则返回false
                     if (_this.isComplete) return false // 已经完成
@@ -222,21 +222,21 @@
             var _this = this
             _this.isComplete = true
             var config = _this.config
-            _this.target.style.webkitTransitionDuration = '500ms'
-            _this.target.style.MozTransitionDuration = '500ms'
-            _this.target.style.msTransitionDuration = '500ms'
-            _this.target.style.OTransitionDuration = '500ms'
-            _this.target.style.transitionDuration = '500ms'
-            _this.target.style.opacity = 0
+            _this.element.style.webkitTransitionDuration = '500ms'
+            _this.element.style.MozTransitionDuration = '500ms'
+            _this.element.style.msTransitionDuration = '500ms'
+            _this.element.style.OTransitionDuration = '500ms'
+            _this.element.style.transitionDuration = '500ms'
+            _this.element.style.opacity = 0
             config.complete && config.complete.call(_this)
             setTimeout(function () {
                 _this.ctx.clearRect(0, 0, _this.width, _this.height)
-                _this.target.style.webkitTransitionDuration = '0ms'
-                _this.target.style.MozTransitionDuration = '0ms'
-                _this.target.style.msTransitionDuration = '0ms'
-                _this.target.style.OTransitionDuration = '0ms'
-                _this.target.style.transitionDuration = '0ms'
-                _this.target.style.opacity = 1
+                _this.element.style.webkitTransitionDuration = '0ms'
+                _this.element.style.MozTransitionDuration = '0ms'
+                _this.element.style.msTransitionDuration = '0ms'
+                _this.element.style.OTransitionDuration = '0ms'
+                _this.element.style.transitionDuration = '0ms'
+                _this.element.style.opacity = 1
             }, 500)
         }
     }

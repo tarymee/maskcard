@@ -1,51 +1,49 @@
 # maskcard
 
-Maskcard is a scratchcard plug-in based on canvas.
+This is a scratchcard plug-in based on canvas.
 
-Maskcard 是一个基于canvas的刮刮卡插件。
+(这是一个基于canvas的刮刮卡插件)
 
+## Installation(安装)
+```
+npm install maskcard --save
+```
 
-## Get started
-
-
-## Example Usage
-**[【example】](example.html)**
+## Example Usage(示例)
+**[【example】](example/index.html)**
 
 ## API
-
 ```
-new Maskcard(target, config)
+new Maskcard(element, config)
 ```
 
 #### Maskcard config
 Name | type | Description | Default
 --- | --- | --- | ---
-fill.type | String | 填充的方式 color or image | color
-fill.content | String | If fill.type==color, fill color value.<br>if fill.type=image, fill image ulr or base64 encoding. | silver
-percent | Number(Integer between 0 and 100) | 涂抹了xx%后自动抹去 | 100
-radius | Number(Integer) | The radius of a scratching path | 20
-disable | Boolean | Whether disable | false
-beforeInit | Function | 初始化之前执行函数 | null
-inited | Function | 初始化之后执行函数 | null
-touchstart | Function | 手指按下的时候执行【带有e参数】 | null
-touchmove | Function | 手指移动的时候执行【带有e参数】 | null
-touchend | Function | 手指离开的时候执行【带有e参数】 | null
-complete | Function | 刮完时【刮到指定百分比之后】执行函数 | null
+fill.type | String | color or image | color
+fill.content | String | When fill.type is color, fill color value<br>(当fill.type=color时, 填color值)<br>When fill.type is image, fill image url or base64 encoding<br>(当fill.type=image时, 填图片地址或者base64编码) | silver
+percent | Number(Integer between 0 and 100) | When xx% auto complete<br>(刮到xx%时自动清除) | 100
+radius | Number(Integer) | The radius of a scratching path<br>(涂抹笔触半径) | 20
+disable | Boolean | Whether disable<br>(是否禁用) | false
+beforeInit | Function | Called before initialized<br>(初始化之前调用) | null
+inited | Function | Called after initialized<br>(初始化之后调用) | null
+touchstart | Function | Called when touchstart, argument: e<br>(初始化之后调用, 参数: e) | null
+touchmove | Function | Called when touchmove, argument: e<br>(手指移动的时候调用, 参数: e) | null
+touchend | Function | Called when touchend, argument: e<br>(手指离开的时候调用, 参数: e) | null
+complete | Function | Called when completed<br>(刮完时调用) | null
 
 
-#### Maskcard methods
+#### Maskcard methods(函数方法)
 Name | Description
 --- | ---
-clear() | complete this scratchcard.
-getProgress() | Compute the current scratching progress.
-disable() | Disable this scratchcard.
-enable() | Enable this scratchcard.
-changeConfig(config) | Change the config and take effect.
-reset() | Reset this scratchcard.
+clear() | Complete this scratchcard<br>(自动刮完)
+getProgress() | Compute the current scratching progress<br>(刮到多少百分比)
+disable() | Disable this scratchcard<br>(禁用刮刮卡)
+enable() | Enable this scratchcard<br>(启用刮刮卡)
+changeConfig(config) | Change the config and take effect<br>(修改config)
+reset() | Reset this scratchcard<br>(重新初始化)
 
-## QA
-#### 1. 注意fillContent图片跨域
-因为canvas中的getImageData方法不支持跨域，所以当参数fill.type=image时，fill.content填的图片地址必须与主文件同域，否则程序会把自动涂抹功能改为刮了【percent/10】次之后自动抹去。  
-如果图片不得不跨域，则考虑以下两种解决方案
-- 通过一个自定义接口，把图片转换成base64编码后再引用
-- 从网络层面设置图片服务器的响应头 Access-Control-Allow-Origin: *
+## Attention(注意)
+Because the 'getImageData' method on 'CanvasRenderingContext2D' does not support cross-domain, so, when fill.type is image, fill.content image url must follow a master file with the domain name. Otherwise program would change the function auto complete into another function that after 10 to complete.
+
+fill.content图片跨域: 因为canvas中的getImageData方法不支持跨域, 所以当参数fill.type=image时, fill.content填的图片地址必须与主文件同域, 否则程序会把自动涂抹功能改为刮了【percent/10】次之后自动抹去.
