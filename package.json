@@ -1,6 +1,6 @@
 {
   "name": "maskcard",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A scratchcard plug-in based on canvas.(基于canvas的刮刮卡插件)",
   "keywords": [
     "scratchcard",
