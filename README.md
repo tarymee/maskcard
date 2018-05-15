@@ -4,19 +4,20 @@ This is a scratchcard plug-in based on canvas.
 
 (这是一个基于canvas的刮刮卡插件)
 
-## Installation(安装)
+## Installation and Usage(安装和使用)
 ```
 npm install maskcard --save
 ```
 
-## Example Usage(示例)
-**[【example】](example/index.html)**
-
-## API
 ```
+import Maskcard from 'maskcard'
 new Maskcard(element, config)
 ```
 
+## Example(示例)
+**[【example】](example/index.html)**
+
+## API
 #### Maskcard config
 Name | type | Description | Default
 --- | --- | --- | ---
