@@ -11,6 +11,7 @@ npm install maskcard --save
 
 ```
 import Maskcard from 'maskcard'
+
 new Maskcard(element, config)
 ```
 

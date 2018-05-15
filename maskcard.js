@@ -49,7 +49,7 @@
         this.init()
     }
 
-    Maskcard.version = '1.0.1'
+    Maskcard.version = '1.0.2'
 
     function extend(sourceObj, extendObj) {
         var newObj = JSON.parse(JSON.stringify(sourceObj))
