@@ -115,6 +115,18 @@
                 return false
             }
 
+            function scratching(e) {
+                var offsetX = element.getBoundingClientRect().left
+                var offsetY = element.getBoundingClientRect().top
+                var x = e.clientX - offsetX
+                var y = e.clientY - offsetY
+
+                ctx.beginPath()
+                ctx.arc(x, y, parseInt(config.radius), 0, Math.PI * 2)
+                ctx.fill()
+            }
+
+
             _this.isTouching = false // 是否正在刮
             _this.touchCount = 0 // 刮的次数
             _this.isComplete = false // 是否刮完
@@ -134,6 +146,9 @@
                     if (e.changedTouches) {
                         e = e.changedTouches[e.changedTouches.length - 1]
                     }
+
+                    scratching(e)
+
                     config.touchstart && config.touchstart.call(_this, e)
                 })
 
@@ -146,14 +161,8 @@
                             e = e.changedTouches[e.changedTouches.length - 1]
                         }
 
-                        var offsetX = element.getBoundingClientRect().left
-                        var offsetY = element.getBoundingClientRect().top
-                        var x = e.clientX - offsetX
-                        var y = e.clientY - offsetY
+                        scratching(e)
 
-                        ctx.beginPath()
-                        ctx.arc(x, y, parseInt(config.radius), 0, Math.PI * 2)
-                        ctx.fill()
                         config.touchmove && config.touchmove.call(_this, e)
                     }
                 })
